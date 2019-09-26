@@ -33,7 +33,7 @@
     </f7-list>
     <button class="button" width="60%" @click="verifi">Registrarme</button>
     <center>
-      <f7-link @click="sendemail">reenviar correo de confirmacion</f7-link>
+      <f7-link @click="verification">reenviar correo de confirmacion</f7-link>
     </center>
     <input type="file" ref="file" style="display:none;" @change="save" />
   </f7-page>
@@ -44,7 +44,7 @@ export default {
     return {
       email: null,
       name: null,
-      password: null
+      password: null,
     };
   },
   computed: {
@@ -72,7 +72,8 @@ export default {
     }
   },
   methods: {
-    sendemail() {
+    verification() {
+      var payload = {}
       this.$store.dispatch("verification", payload);
     },
     verifi() {
@@ -87,8 +88,10 @@ export default {
           payload.img_url = url;
           self.$store.dispatch("verifi", payload);
         });
-      } else {
-        this.$store.dispatch("verifi", payload);
+      } else if(this.email == null || this.password == null || this.password == null) {
+        alert('Faltan Campos Por llenar Gustavo'); 
+      }else{
+       this.$store.dispatch("verifi", payload);
       }
       //alert(JSON.stringify(payload));
     },

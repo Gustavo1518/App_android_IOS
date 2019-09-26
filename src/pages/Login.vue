@@ -33,13 +33,15 @@
     </f7-list>
     <button class="btn btn-primary" width="60%" @click="login">Iniciar Sesion</button>
     <center>
-      <f7-link>Olvide mi contraseña</f7-link>|
+      <f7-link>resend email</f7-link>|
       <f7-link href="/Registrate/">Registrarme</f7-link>|
-      <f7-link>Cambiar contraseña</f7-link>
+      <f7-link @click="forgetpassword">Olvide Mi Contraseña</f7-link>
     </center>
   </f7-page>
 </template>
 <script>
+//v-if="show_resend_email"
+import firebase from 'firebase';
 export default {
   data() {
     return {
@@ -53,6 +55,9 @@ export default {
     },
     img_url() {
       return this.$store.getters.img_url;
+    },
+    show_resend_email() {
+      return this.$store.getters.show_resend_email;
     }
   },
   methods: {
@@ -60,7 +65,33 @@ export default {
       var payload = {};
       payload.email = this.email;
       payload.password = this.password;
+      if(this.email == null || this.password == null){
+      alert('Faltan Campos Por llenar');
+      }else{
       this.$store.dispatch("login", payload);
+      }
+    },
+    forgetpassword() {
+      const self = this
+      console.log('forgetpassword');
+      var auth = firebase.auth();
+      if (self.email != null) {
+        auth
+          .sendPasswordResetEmail(self.password)
+          .then(function() {
+            // Email sent.
+            self.payload.$store.commit(
+              "setAlertMessage",
+              "An reset email has been sent"
+            );
+          })
+          .catch(function(error) {
+            // An error happened.
+            self.$store.commit("setAlertMessage", error);
+          });
+      } else {
+          self.$store.commit("setAlertMessage",'please enter yout email');
+      }
     }
   }
 };

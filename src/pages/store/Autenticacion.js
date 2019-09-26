@@ -32,7 +32,7 @@ const Autenticacion = {
                 commit('setAlertMessage', 'Se envio correo de confirmacion ${user.email}');
                 alert('Se Envio Correo De Confirmacion');
             }).catch(function (error) {
-                alert('Se produjo un error', error);
+                alert('Se produjo un error Gustavo );', error);
             });
 
         }

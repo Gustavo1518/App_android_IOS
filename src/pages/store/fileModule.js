@@ -3,12 +3,15 @@ const fileModule = {
     state: {
         img_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNVOLQf8KsEW0B0sfU8QjmICksllCuHbYyvi8KRL1azpYFpaA9",
         files: null,
-        signed_in: false
+        signed_in: false,
+        show_resend_email:false,
+        setShowResendEmail: null
     },
     getters: {
         signed_in: state => state.signed_in,
         img_url: state => state.img_url,
-        files: state => state.files
+        files: state => state.files,
+        show_resend_email: state => state.show_resend_email
     },
     mutations: {
         setImageURL(state, payload) {
@@ -19,6 +22,9 @@ const fileModule = {
         },
         setSignedIn(state, payload) {
             state.signed_in = payload
+        },
+        setShowResendEmail(state, payload){
+         state.show_resend_email = payload
         }
     },
     actions: {
@@ -32,13 +38,15 @@ const fileModule = {
                         firebase.auth().onAuthStateChanged(function (user) {
                             if (user.emailVerified) {
                                 // User is signed in.
-                                commit('setSignedIn', true)
+                                commit('setSignedIn', true);
                                 commit('setAlertMessage', user.displayName)
+                                commit('setShowResendEmail', false)
 
                             } else {
                                 // No user is signed in.
                                 commit('setSignedIn', false)
                                 commit('setAlertMessage', "por favor verifica tu email");
+                                commit('setShowResendEmail', true)
                             }
                         });
                     },
@@ -61,7 +69,9 @@ const fileModule = {
                 });
             } else if (file['size'] > 20000) {
                 alert("Imagen Demasiado Grande");
-            } else {
+            }else if(this.file == null){
+             alert("Se Omite Foto De Perfil");
+            }else{
                 commit('setAlertMessage', 'the image size  is greater than 200 KB');
             }
         },
