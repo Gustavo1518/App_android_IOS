@@ -4,14 +4,22 @@ const fileModule = {
         img_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNVOLQf8KsEW0B0sfU8QjmICksllCuHbYyvi8KRL1azpYFpaA9",
         files: null,
         signed_in: false,
-        show_resend_email:false,
-        setShowResendEmail: null
+        show_resend_email: false,
+        setShowResendEmail: null,
+        photo_url: null,
+        display_name: null,
+        user: null,
+        loading: false,
+        error: null
     },
     getters: {
         signed_in: state => state.signed_in,
         img_url: state => state.img_url,
         files: state => state.files,
-        show_resend_email: state => state.show_resend_email
+        show_resend_email: state => state.show_resend_email,
+        photo_url: state => state.photo_url,
+        display_name: state => state.display_name
+
     },
     mutations: {
         setImageURL(state, payload) {
@@ -23,10 +31,28 @@ const fileModule = {
         setSignedIn(state, payload) {
             state.signed_in = payload
         },
-        setShowResendEmail(state, payload){
-         state.show_resend_email = payload
-        }
-    },
+        setShowResendEmail(state, payload) {
+            state.show_resend_email = payload
+        },
+        setPhotoURL(state, payload) {
+            state.show_photo_url = payload
+        },
+        setDisplayName(state, payload) {
+            state.show_display_name = payload
+        },
+        setUser (state, payload){
+            state.user = payload
+        },
+        setLoading (state, payload) {
+            state.loading = payload
+          },
+          setError (state, payload) {
+            state.error = payload
+          },
+          setError(state) {
+            state.error = null
+          }
+        },
     actions: {
         login({ commit }, payload) {
             firebase.auth()
@@ -41,6 +67,8 @@ const fileModule = {
                                 commit('setSignedIn', true);
                                 commit('setAlertMessage', user.displayName)
                                 commit('setShowResendEmail', false)
+                                commit('setPhotoURL', user.photoURL)
+                                commit('setDisplayName', user.displayName)
 
                             } else {
                                 // No user is signed in.
@@ -69,9 +97,9 @@ const fileModule = {
                 });
             } else if (file['size'] > 20000) {
                 alert("Imagen Demasiado Grande");
-            }else if(this.file == null){
-             alert("Se Omite Foto De Perfil");
-            }else{
+            } else if (this.file == null) {
+                alert("Se Omite Foto De Perfil");
+            } else {
                 commit('setAlertMessage', 'the image size  is greater than 200 KB');
             }
         },
@@ -98,7 +126,32 @@ const fileModule = {
                         });
                     });
             });
-        }
+        },
+        signUserInFacebook ({commit}) {
+            commit('setLoading', true)
+            commit('setError')
+            firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider())
+              .then(
+                user => {
+                  commit('setLoading', true)
+                  const newuser = {
+                        uid: data.user.uid,
+                        name: payload.name,
+                        email: payload.email,
+                        emailverified: true,
+                        password: payload.password
+                  }
+                  commit('setUser', newuser)
+                }
+              )
+              .catch(
+                error => {
+                  commit('setLoading', false)
+                  commit('setError', error)
+                  console.log(error)
+                }
+              )
+          },
     }
 }
 export default fileModule

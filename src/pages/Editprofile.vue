@@ -57,28 +57,15 @@ export default {
     },
     files() {
       return this.$store.getters.files;
-    },
-    signed_in() {
-      return this.$store.getters.signed_in;
     }
   },
   watch: {
-    alert_message(value) {
-      const self = this;
-      this.showToastBotton(value);
-      setTimeout(() => {
-        self.$store.commit("setAlertMessage");
-      }, 200);
-    }
+
   },
   methods: {
     verification() {
       var payload = {}
-      if(this.email == null || this.password == null || this.password == null){
-      alert('Error No Existe Correo');
-      }else{
-        this.$store.dispatch("verification", payload);
-      }
+      this.$store.dispatch("verification", payload);
     },
     verifi() {
       const self = this;
@@ -93,7 +80,7 @@ export default {
           self.$store.dispatch("verifi", payload);
         });
       } else if(this.email == null || this.password == null || this.password == null) {
-        alert('Faltan Campos Por llenar'); 
+        alert('Faltan Campos Por llenar Gustavo'); 
       }else{
        this.$store.dispatch("verifi", payload);
       }
@@ -104,18 +91,10 @@ export default {
     },
     save() {
       this.$store.dispatch("readFile");
-    },
-    showToastBotton(text) {
-      const self = this;
-      if (!self.toastBotton || self.toastBotton.destroyed) {
-        self.toastBotton = self.$f7.toast.create({
-          text: text,
-          closetimeout: 2000,
-          destroyOnClose: true
-        });
-      }
-      self.toastBotton.open();
     }
+  },
+  created(){
+
   }
 };
 </script>

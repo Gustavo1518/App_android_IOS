@@ -13,6 +13,7 @@ import NotFoundPage from '../pages/404.vue';
 import Login from '../pages/Login';
 import Inicio from '../pages/Inicio';
 import Informacion from '../pages/Informacion';
+import Editprofile from '../pages/Editprofile';
 
 var routes = [
   {
@@ -54,6 +55,10 @@ var routes = [
   {
     path: '/Registrate/',
     component: Registrate,
+  },
+  {
+    path: '/Editprofile/',
+    component: Editprofile
   },
   {
     path: '/dynamic-route/blog/:blogId/post/:postId/',

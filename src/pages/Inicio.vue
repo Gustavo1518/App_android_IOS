@@ -1,24 +1,23 @@
 <template>
   <f7-page name="inicio">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
     <!-- Navbar content -->
     <div class="navbar">
       <div class="navbar-inner">
-        <div class="left">
-          <a>
-            <i></i>
-            <span>Bienvenido</span>
-          </a>
-        </div>
-        <div class="title">user</div>
         <div class="right">
           <a>
-            <i class="icon another-icon"></i>
             <span>
-              <button width="10%" @click="signOut" class="button color-red">Cerrar sesion</button>
+              <button width="10%" @click="signOut" class="btn btn-danger">Cerrar sesion</button>
             </span>
           </a>
         </div>
       </div>
+    </div>
+    <div>
+      <img :src="img_url"/>
     </div>
   </f7-page>
 </template>
@@ -29,6 +28,11 @@ export default {
       const app = this.$f7;
       this.$store.dispatch("signOut");
       app.panel.close();
+    }
+  },
+  computed: {
+    img_url() {
+      return this.$store.getters.img_url;
     }
   }
 };

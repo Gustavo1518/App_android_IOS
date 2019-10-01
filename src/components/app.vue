@@ -7,7 +7,9 @@
     <f7-panel left cover theme-dark>
       <f7-view>
         <f7-page>
-          <f7-navbar title="Menu principal"></f7-navbar>
+          <center>
+          <div class="image"><img :src="photo_url" alt=""></div>
+        <f7-block>{{ display_name }}</f7-block></center>
           <f7-list>
             <f7-list-item link="/Login/" view=".view-main" panel-close title="Login"></f7-list-item>
           </f7-list>
@@ -51,7 +53,7 @@
           icon-ios="f7:settings_fill"
           icon-aurora="f7:settings_fill"
           icon-md="material:settings"
-          text="Settings"
+          text="Editar Perfil"
         ></f7-link>
       </f7-toolbar>
 
@@ -62,7 +64,7 @@
       <f7-view id="view-catalog" name="catalog" tab url="/catalog/"></f7-view>
 
       <!-- Settings View -->
-      <f7-view id="view-settings" name="settings" tab url="/settings/"></f7-view>
+      <f7-view id="view-settings" name="settings Perfil" tab url="/Editprofile/"></f7-view>
     </f7-views>
     <f7-view v-if="!signed_in" url="/Inicio/" :main="true"></f7-view>
 
@@ -195,6 +197,12 @@ export default {
   computed: {
     signed_in() {
       return this.$store.getters.signed_in;
+    },
+    display_name() {
+      return this.$store.getters.display_name;
+    },
+    photo_url() {
+      return this.$store.getters.photo_url;
     }
   },
   methods: {

@@ -1,7 +1,6 @@
 import firebase from 'firebase';
 
 const Autenticacion = {
-
     actions: {
         // Creacion de nuevo usuario y almacanado
         verifi({ commit, dispatch }, payload) {
@@ -32,7 +31,7 @@ const Autenticacion = {
                 commit('setAlertMessage', 'Se envio correo de confirmacion ${user.email}');
                 alert('Se Envio Correo De Confirmacion');
             }).catch(function (error) {
-                alert('Se produjo un error Gustavo );', error);
+                alert('Se produjo un error);', error);
             });
 
         }
