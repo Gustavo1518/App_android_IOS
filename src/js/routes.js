@@ -14,6 +14,9 @@ import Login from '../pages/Login';
 import Inicio from '../pages/Inicio';
 import Informacion from '../pages/Informacion';
 import Editprofile from '../pages/Editprofile';
+import Restablecercontraseña from '../pages/RestablecerContraseña';
+import Contactos from '../pages/chat/Contactos';
+import requests from "../pages/chat/requests";
 
 var routes = [
   {
@@ -59,6 +62,18 @@ var routes = [
   {
     path: '/Editprofile/',
     component: Editprofile
+  },
+  {
+    path: '/Contactos/',
+    component: Contactos
+  },
+  {
+    path: '/requests/',
+    component: requests
+  },
+  {
+    path: '/Restablecercontraseña/',
+    component: Restablecercontraseña
   },
   {
     path: '/dynamic-route/blog/:blogId/post/:postId/',

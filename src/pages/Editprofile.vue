@@ -1,50 +1,37 @@
 <template>
   <f7-page name="Registrate">
     <f7-navbar title="Registrate" back-link="Blue"></f7-navbar>
+    <div>
+      <center>
+        <img class="image--cover" :src="img_url" alt="Registro" @click="launchFilepicker" />
+      </center>
+    </div>
     <f7-list no-hairlines-md>
-      <div>
-        <center>
-          <img class="image--cover" :src="img_url" alt="Registro" @click="launchFilepicker" />
-        </center>
-      </div>
       <f7-list-input
-        :value="name"
-        @input="name=$event.target.value"
-        label="Name"
+        :value="display_name"
+        @input="display_name=$event.target.value"
+        label="name"
         type="text"
         placeholder="Your name"
       ></f7-list-input>
-
-      <f7-list-input
-        :value="email"
-        @input="email=$event.target.value"
-        label="email"
-        type="email"
-        placeholder="Your email"
-      ></f7-list-input>
-
-      <f7-list-input
-        :value="password"
-        @input="password=$event.target.value"
-        label="Password"
-        type="password"
-        placeholder="Password"
-      ></f7-list-input>
     </f7-list>
-    <button class="button" width="60%" @click="verifi">Registrarme</button>
-    <center>
-      <f7-link @click="verification">reenviar correo de confirmacion</f7-link>
-    </center>
-    <input type="file" ref="file" style="display:none;" @change="save" />
+    <f7-block>
+      <button class="button" width="60%" outline @click="Updateprofile">Actualizar perfil</button>
+      <input type="file" ref="file" style="display:none;" @change="save" />
+      {{ display_name }}
+    </f7-block>
   </f7-page>
 </template>
 <script>
+import firebase from "firebase";
+import { storage } from "firebase";
+import { fileURLToPath } from "url";
 export default {
   data() {
     return {
       email: null,
       name: null,
-      password: null,
+      password: null
     };
   },
   computed: {
@@ -57,16 +44,21 @@ export default {
     },
     files() {
       return this.$store.getters.files;
+    },
+    photo_url() {
+      return this.$store.getters.photo_url;
+    },
+    display_name: {
+      get: function() {
+        return this.$store.getters.display_name;
+      },
+      set: function() {
+        return this.$store.commit("setDisplayName");
+      }
     }
   },
-  watch: {
-
-  },
+  watch: {},
   methods: {
-    verification() {
-      var payload = {}
-      this.$store.dispatch("verification", payload);
-    },
     verifi() {
       const self = this;
       var payload = {};
@@ -79,10 +71,14 @@ export default {
           payload.img_url = url;
           self.$store.dispatch("verifi", payload);
         });
-      } else if(this.email == null || this.password == null || this.password == null) {
-        alert('Faltan Campos Por llenar Gustavo'); 
-      }else{
-       this.$store.dispatch("verifi", payload);
+      } else if (
+        this.email == null ||
+        this.password == null ||
+        this.password == null
+      ) {
+        alert("Faltan Campos Por llenar Gustavo");
+      } else {
+        this.$store.dispatch("verifi", payload);
       }
       //alert(JSON.stringify(payload));
     },
@@ -91,10 +87,60 @@ export default {
     },
     save() {
       this.$store.dispatch("readFile");
+    },
+    Updateprofile() {
+      const self = this;
+      var user = firebase.auth().currentUser;
+      if (self.files) {
+        if (this.photo_url != null) {
+          var store = firebase.storage();
+          var httpReference = storage.refFromURL(this.photo_url);
+          httpReference
+            .delete()
+            .then(() => {})
+            .catch(err => {
+              console.log("se produjo un error", err);
+            });
+        }
+        self.$store.dispatch("uploadFile").then(url => {
+          user
+            .updateProfile({
+              displayName: self.display_name,
+              photoURL: url
+            })
+            .then(function() {
+              self.$store.commit("setPhotoURL", user.photoURL);
+              self.$store.commit("setDisplayName", user.displayName);
+              firebase
+                .database()
+                .ref("users/" + user.uid)
+                .update({
+                  photo_url: user.photoURL,
+                  name: user.displayName
+                });
+            });
+        });
+      } else {
+        user
+          .updateProfile({
+            displayName: self.display_name
+          })
+          .then(function() {
+            self.$store.commit("setDisplayName", user.displayName);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
     }
   },
-  created(){
-
+  created() {
+    if (this.photo_url != null) {
+      this.$store.commit("setImageURL", this.photo_url);
+      console.log("La imagen no es null");
+    } else {
+      console.log("la imagen es nula, ocurrio un error");
+    }
   }
 };
 </script>

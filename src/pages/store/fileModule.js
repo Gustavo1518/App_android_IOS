@@ -8,7 +8,6 @@ const fileModule = {
         setShowResendEmail: null,
         photo_url: null,
         display_name: null,
-        user: null,
         loading: false,
         error: null
     },
@@ -35,24 +34,24 @@ const fileModule = {
             state.show_resend_email = payload
         },
         setPhotoURL(state, payload) {
-            state.show_photo_url = payload
+            state.photo_url = payload
         },
         setDisplayName(state, payload) {
             state.show_display_name = payload
         },
-        setUser (state, payload){
+        setUser(state, payload) {
             state.user = payload
         },
-        setLoading (state, payload) {
+        setLoading(state, payload) {
             state.loading = payload
-          },
-          setError (state, payload) {
-            state.error = payload
-          },
-          setError(state) {
-            state.error = null
-          }
         },
+        setError(state, payload) {
+            state.error = payload
+        },
+        setError(state) {
+            state.error = null
+        }
+    },
     actions: {
         login({ commit }, payload) {
             firebase.auth()
@@ -127,31 +126,30 @@ const fileModule = {
                     });
             });
         },
-        signUserInFacebook ({commit}) {
+        signUserInFacebook({ commit }) {
             commit('setLoading', true)
             commit('setError')
             firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider())
-              .then(
-                user => {
-                  commit('setLoading', true)
-                  const newuser = {
-                        uid: data.user.uid,
-                        name: payload.name,
-                        email: payload.email,
-                        emailverified: true,
-                        password: payload.password
-                  }
-                  commit('setUser', newuser)
-                }
-              )
-              .catch(
-                error => {
-                  commit('setLoading', false)
-                  commit('setError', error)
-                  console.log(error)
-                }
-              )
-          },
+                .then(
+                    user => {
+                        commit('setLoading', true)
+                        const newuser = {
+                            uid: data.user.uid,
+                            name: payload.name,
+                            email: payload.email,
+                            password: payload.password
+                        }
+                        commit('setUser', newuser)
+                    }
+                )
+                .catch(
+                    error => {
+                        commit('setLoading', false)
+                        commit('setError', error)
+                        console.log(error)
+                    }
+                )
+        },
     }
 }
 export default fileModule

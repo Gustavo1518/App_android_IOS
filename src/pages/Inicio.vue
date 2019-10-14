@@ -11,18 +11,28 @@
           <a>
             <span>
               <button width="10%" @click="signOut" class="btn btn-danger">Cerrar sesion</button>
+            </span><br/>
+          </a> 
+          <center><a>
+            <span>
+              <button width="10%" class="btn btn-danger">Contactos</button>
             </span>
-          </a>
+          </a></center>
         </div>
       </div>
     </div>
     <div>
-      <img :src="img_url"/>
+      <img :src="img_url" />
     </div>
   </f7-page>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      error: '',
+    };
+  },
   methods: {
     signOut() {
       const app = this.$f7;

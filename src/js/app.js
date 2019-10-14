@@ -22,9 +22,10 @@ import store from '../pages/store/store';
 
 // import firebase
 import firebase from 'firebase';
+import lodash from 'lodash'
 
 // Init Framework7-Vue Plugin
-Framework7.use(Framework7Vue);
+Framework7.use(Framework7Vue, lodash);
 let newapp = null
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -34,7 +35,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     // No user is signed in.
     store.commit('setSignedIn', true)
   }
-
   if(!newapp){
    newapp = 
    new Vue({
@@ -46,7 +46,5 @@ firebase.auth().onAuthStateChanged(function(user) {
       app: App
     },
   });    
-  }else{
-
   }
 });

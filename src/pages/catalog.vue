@@ -12,11 +12,11 @@
   </f7-page>
 </template>
 <script>
-  export default {
-    data: function () {
-      return {
-        products: this.$f7.data.products,
-      };
-    }
-  };
+export default {
+  data: function() {
+    return {
+      products: this.$f7.data.products
+    };
+  }
+};
 </script>

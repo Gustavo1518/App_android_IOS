@@ -1,5 +1,9 @@
 <template>
   <f7-page name="Registrate">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
     <f7-navbar title="Registrate" back-link="Blue"></f7-navbar>
     <f7-list no-hairlines-md>
       <div>
@@ -31,7 +35,7 @@
         placeholder="Password"
       ></f7-list-input>
     </f7-list>
-    <button class="button" width="60%" @click="verifi">Registrarme</button>
+    <button class="btn btn-primary" width="60%" @click="verifi">Registrarme</button>
     <center>
       <f7-link @click="verification">reenviar correo de confirmacion</f7-link>
     </center>
@@ -73,14 +77,18 @@ export default {
   },
   methods: {
     verification() {
-      var payload = {}
-      if(this.email == null || this.password == null || this.password == null){
-      alert('Error No Existe Correo');
-      }else{
+      var payload = {};
+      if (
+        this.email == null ||
+        this.password == null ||
+        this.password == null
+      ) {
+       alert('No existe Correo')
+      } else {
         this.$store.dispatch("verification", payload);
       }
     },
-    verifi() {
+    verifi(value) {
       const self = this;
       var payload = {};
       payload.email = this.email;
@@ -92,11 +100,16 @@ export default {
           payload.img_url = url;
           self.$store.dispatch("verifi", payload);
         });
-      } else if(this.email == null || this.password == null || this.password == null) {
-        alert('Faltan Campos Por llenar'); 
-      }else{
-       this.$store.dispatch("verifi", payload);
+      } else if (
+        this.email == null ||
+        this.password == null ||
+        this.password == null
+      ) {
+        alert("Campos Vacios")
+      } else {
+        this.$store.dispatch("verifi", payload);
       }
+      return (this.email = ""), (this.password = ""), (this.name = "");
       //alert(JSON.stringify(payload));
     },
     launchFilepicker() {

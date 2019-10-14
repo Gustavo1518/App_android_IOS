@@ -5,7 +5,6 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
     <f7-navbar title="Login" back-link="Blue">conacyt</f7-navbar>
-    {{ title }}
     <div>
       <center>
         <f7-block-title>Iniciar Sesion</f7-block-title>
@@ -35,18 +34,23 @@
     <center>
       <f7-link @click="onSigninFacebook">Iniciar Con Facebook</f7-link>|
       <f7-link href="/Registrate/">Registrarme</f7-link>|
-      <f7-link @click="forgetpassword">Olvide Mi Contraseña</f7-link>
+      <f7-link @click="forgetpassword" href="/Restablecercontraseña/">Olvide Mi Contraseña</f7-link>
+
+      <div class="alert alert-success" role="alert" v-if="error">
+        <h4 class="alert-heading">{{ error }}</h4>
+      </div>
     </center>
   </f7-page>
 </template>
 <script>
 //v-if="show_resend_email"
-import firebase from 'firebase';
+import firebase from "firebase";
 export default {
   data() {
     return {
       email: null,
-      password: null
+      password: null,
+      error: "",
     };
   },
   computed: {
@@ -65,14 +69,16 @@ export default {
       var payload = {};
       payload.email = this.email;
       payload.password = this.password;
-      if(this.email == null || this.password == null){
-      alert('Faltan Campos Por llenar');
-      }else{
-      this.$store.dispatch("login", payload);
+      if (this.email == null || this.password == null) {
+        this.error = "Faltan Campos Por llenar";
+      } else {
+        this.$store.dispatch("login", payload);
+
+        return (this.error = "");
       }
     },
     forgetpassword() {
-      console.log('forgetpassword');
+      console.log("forgetpassword");
       var auth = firebase.auth();
       if (this.email != null) {
         auth
@@ -88,15 +94,15 @@ export default {
             // An error happened.
             this.$store.commit("setAlertMessage", error);
           });
-      } else if(this.email == null || this.password == null){
-        alert('Error Campos Vacios');
-      }else {
-        this.$store.commit("setAlertMessage",'please enter yout email');
+      } else if (this.email == null || this.password == null) {
+        console.log("restablecer contraseña");
+      } else {
+        this.$store.commit("setAlertMessage", "please enter yout email");
       }
     },
-  onSigninFacebook () {
-  this.$store.dispatch('signUserInFacebook');
-      }
+    onSigninFacebook() {
+      this.$store.dispatch("signUserInFacebook");
+    }
   }
 };
 </script>

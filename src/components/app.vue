@@ -8,22 +8,10 @@
       <f7-view>
         <f7-page>
           <center>
-          <div class="image"><img :src="photo_url" alt=""></div>
+          <div class="image"><img :src="img_url" alt=""></div>
         <f7-block>{{ display_name }}</f7-block></center>
           <f7-list>
             <f7-list-item link="/Login/" view=".view-main" panel-close title="Login"></f7-list-item>
-          </f7-list>
-        </f7-page>
-      </f7-view>
-    </f7-panel>
-
-    <!-- Right panel with reveal effect-->
-    <f7-panel right reveal theme-dark>
-      <f7-view>
-        <f7-page>
-          <f7-navbar title="Sub Menu"></f7-navbar>
-          <f7-list>
-            <f7-list-item link="/Informacion/" view=".view-main" panel-close title="Informacion"></f7-list-item>
           </f7-list>
         </f7-page>
       </f7-view>
@@ -201,8 +189,8 @@ export default {
     display_name() {
       return this.$store.getters.display_name;
     },
-    photo_url() {
-      return this.$store.getters.photo_url;
+    img_url() {
+      return this.$store.getters.img_url;
     }
   },
   methods: {
@@ -215,9 +203,10 @@ export default {
   mounted() {
     this.$f7ready(f7 => {
       // Init cordova APIs (see cordova-app.js)
-      if (f7.device.cordova) {
+      if(f7.device.cordova) {
         cordovaApp.init(f7);
-      }
+      }else{
+       console.log('existe un error para iniciar la applicacion ');      }
       // Call F7 APIs here
     });
   }
