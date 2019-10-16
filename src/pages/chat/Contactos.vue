@@ -31,10 +31,10 @@ export default {
       return this.$store.getters.contactos;
     }
   },
-  methods: {
+  methods: { 
     addFrd(frd) {
       var request = {};
-      request.sender = firebase.auth().currentUser.uid;
+      request.sender = firebase.auth().currentUser;
       request.recipient = frd.uid;
       console.log("request", request);
       this.$store.dispatch("sendRequest", request);
