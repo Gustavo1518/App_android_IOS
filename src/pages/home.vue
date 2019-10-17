@@ -21,5 +21,18 @@
       </f7-nav-right>
       <f7-nav-title-large sliding>Conacyt</f7-nav-title-large>
     </f7-navbar>
+    <pre>{{friends}}</pre>
   </f7-page>
 </template>
+<script>
+export default {
+ computed:{
+   friends(){
+  //   return this.$state.getters.friends
+   }
+ },
+ create(){
+   this.$store.dispatch('getMyFriends')
+ }
+}
+</script>

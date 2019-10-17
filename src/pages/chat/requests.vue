@@ -6,6 +6,7 @@
   </f7-page>
 </template>
 <script>
+import { request } from 'http';
 export default {
   computed: {
     friend_requests() {
@@ -21,7 +22,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getMyRequests");
+    this.$store.dispatch("requestsn");
   }
 };
 </script> 
