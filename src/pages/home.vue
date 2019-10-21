@@ -21,18 +21,34 @@
       </f7-nav-right>
       <f7-nav-title-large sliding>Conacyt</f7-nav-title-large>
     </f7-navbar>
-    <pre>{{friends}}</pre>
+    <!--
+    <div>
+      {{friends}}
+    </div>
+    
+    <div>
+      <li v-for="(item, index) in friend_requests" :key="index">
+        <i>
+          {{item}}
+        </i>
+      </li>
+    </div>-->
   </f7-page>
 </template>
 <script>
+import firebase from 'firebase'
 export default {
  computed:{
    friends(){
-  //   return this.$state.getters.friends
+    return this.$store.getters.friends
+   },
+   friend_requests(){
+     return this.$store.getters.friend_requests
    }
  },
- create(){
-   this.$store.dispatch('getMyFriends')
+ created(){
+//this.$store.dispatch('requestsn')
+// this.$store.dispatch('getMyFriends')
  }
 }
 </script>

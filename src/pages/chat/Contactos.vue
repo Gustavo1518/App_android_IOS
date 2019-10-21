@@ -13,7 +13,6 @@
         link="#"
         :title="contacto.name"
       >
-        <img class="small-avatar" slot="media"/>
         <div class="block">
           <div class="row">
             <button class="col button button-fill"  @click="addFrd(contacto)" width="10%">Mandar Solicitud</button>

@@ -2,11 +2,14 @@
   <f7-page name="Requests">
     <f7-navbar title="Requests" back-link="Back"></f7-navbar>
     <f7-block-title>friend requests</f7-block-title>
-    <pre>{{friend_requests}}</pre>
+    <div>
+      <li v-for="(item, index) in friend_requests" :key="index">
+        <i>{{ item}}</i>
+      </li>
+    </div>
   </f7-page>
 </template>
 <script>
-import { request } from 'http';
 export default {
   computed: {
     friend_requests() {
@@ -22,7 +25,8 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("requestsn");
+   // this.$store.dispatch('requestsn')
+  this.$store.dispatch("requestsn");
   }
 };
 </script> 

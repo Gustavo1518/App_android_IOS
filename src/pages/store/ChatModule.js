@@ -24,7 +24,7 @@ const ChatModule = {
     },
     actions: {
         comfirmRequests({ dispatch }, payload) {
-            return promise = new Promise((resolve, reject) => {
+            return Promise = new Promise((resolve, reject) => {
                 db.firefriends.child(firebase.auth().currentUser.uid)
                     .push({ uid: payloa.uid })
                     .then(() => {
@@ -42,7 +42,7 @@ const ChatModule = {
             })
         },
         deleteRequests({ }, payload) {
-            var promise = new Promise((resolve, reject) => {
+            return Promise = new Promise((resolve, reject) => {
                 db.firerequest.child(firebase.auth().currentUser.uid)
                     .ordeBychild('sender')
                     .equalTo(payload, uid)
@@ -62,32 +62,27 @@ const ChatModule = {
                         reject(err)
                     })
             })
-            return promise
         },
         async getMyRequests({ commit, dispatch }) {
             var users = await dispatch('getAllUsers')
             db.firerequest.child(firebase.auth().currentUser.uid)
                 .on('value', snapshot => {
-
                     var frd_request_id = _.map(snapshot.val(), 'sender')
                     var userdetails = []
-                    console.log(frd_request_id)
                     _.forEach(frd_request_id, uid=> {
                         var user = _.find(users ['uid', uid])
                         userdetails.push(user)
 
                     })
-                    commit('setFriendRequests', userdetails)
+                   // commit('setFriendRequests', userdetails)
                 })
         },
         async getMyFriends({ commit, dispatch }) {
             var users = await dispatch('getAllUsers')
             db.firefriends.child(firebase.auth().currentUser.uid)
                 .on('value', snapshot => {
-
                     var frds_id = _.map(snapshot.val(), 'sender')
                     var userdetails = []
-                    console.log(frds_id)
                     _.forEach(frds_id, uid=> {
                         var user = _.find(users ['uid', uid])
                         userdetails.push(user)
@@ -97,13 +92,14 @@ const ChatModule = {
                 })
         },
         requestsn({ commit }) {
-            return Promise = new Promise((resolve, reject) => {
+         var  promise = new Promise((resolve) => {
                 firebase.database().ref('requests').on('value', function (snapshot) {
                     console.log(snapshot.val())
                     commit('setFriendRequests', snapshot.val())
                     resolve(snapshot.val())
                 })
             })
+            return Promise
         },
         getAllUsers({ commit }) {
             var promise = new Promise((resolve) => {
