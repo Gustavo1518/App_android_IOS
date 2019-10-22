@@ -17,6 +17,7 @@ import Editprofile from '../pages/Editprofile';
 import Restablecercontraseña from '../pages/RestablecerContraseña';
 import Contactos from '../pages/chat/Contactos';
 import requests from "../pages/chat/requests";
+import Chat from '../pages/chat/Chat';
 
 var routes = [
   {
@@ -70,6 +71,10 @@ var routes = [
   {
     path: '/requests/',
     component: requests
+  },
+  {
+    path: '/Chat/:frd',
+    component: Chat
   },
   {
     path: '/Restablecercontraseña/',

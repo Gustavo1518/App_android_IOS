@@ -13,9 +13,15 @@
         link="#"
         :title="contacto.name"
       >
+        {{contacto.img_url}}
+        <!-- <img src="contacto.img_url">-->
         <div class="block">
           <div class="row">
-            <button class="col button button-fill"  @click="addFrd(contacto)" width="10%">Mandar Solicitud</button>
+            <button
+              class="col button button-fill"
+              @click="addFrd(contacto)"
+              width="10%"
+            >Mandar Solicitud</button>
           </div>
         </div>
       </f7-list-item>
@@ -30,7 +36,7 @@ export default {
       return this.$store.getters.contactos;
     }
   },
-  methods: { 
+  methods: {
     addFrd(frd) {
       var request = {};
       request.sender = firebase.auth().currentUser;

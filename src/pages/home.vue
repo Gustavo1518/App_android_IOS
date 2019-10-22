@@ -9,7 +9,7 @@
       <f7-nav-right>
         <f7-link href="/requests/">
           <f7-icon f7="persons">
-            <f7-badge color="red">10</f7-badge>
+            <f7-badge color="red">3</f7-badge>
           </f7-icon>
         </f7-link>
         <f7-link icon-f7="add" href="/Contactos/"></f7-link>
@@ -48,7 +48,7 @@ export default {
  },
  created(){
 //this.$store.dispatch('requestsn')
-// this.$store.dispatch('getMyFriends')
+//this.$store.dispatch('getMyFriends')
  }
 }
 </script>

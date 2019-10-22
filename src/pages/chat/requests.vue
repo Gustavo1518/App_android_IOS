@@ -4,7 +4,7 @@
     <f7-block-title>friend requests</f7-block-title>
     <div>
       <li v-for="(item, index) in friend_requests" :key="index">
-        <i>{{ item}}</i>
+        <i>{{ item }}</i>
       </li>
     </div>
   </f7-page>
@@ -25,8 +25,8 @@ export default {
     }
   },
   created() {
-   // this.$store.dispatch('requestsn')
-  this.$store.dispatch("requestsn");
+    // this.$store.dispatch('requestsn')
+    this.$store.dispatch("requestsn");
   }
 };
 </script> 
