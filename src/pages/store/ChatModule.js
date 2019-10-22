@@ -4,7 +4,7 @@ const ChatModule = {
     state: {
         contactos: [],
         friend_requests: [],
-        friends: [],
+        friends: []
     },
     getters: {
         contactos: state => state.contactos,
@@ -41,7 +41,7 @@ const ChatModule = {
                     })
             })
         },
-        deleteRequests({ dispatch }, payload) {
+        deleteRequests({dispatch},payload) {
             return Promise = new Promise((resolve, reject) => {
                 db.firerequest.child(firebase.auth().currentUser.uid)
                     .ordeBychild('sender')
@@ -71,7 +71,7 @@ const ChatModule = {
                     var userdetails = []
                     _.forEach(frd_request_id, uid => {
                         var user = _.find(users['uid', uid])
-                        userdetails.push(user, uid)
+                        userdetails.push(user)
 
                     })
                     commit('setFriendRequests', userdetails)

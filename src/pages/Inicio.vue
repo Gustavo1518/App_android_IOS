@@ -13,17 +13,15 @@
               <button width="10%" @click="signOut" class="btn btn-danger">Cerrar sesion</button>
             </span><br/>
           </a> 
-          <center><a>
-            <span>
-              <button width="10%" class="btn btn-danger">Contactos</button>
-            </span>
-          </a></center>
         </div>
       </div>
     </div>
-    <div>
+    <center>
+      <div>
       <img :src="img_url" />
     </div>
+    </center>
+    
   </f7-page>
 </template>
 <script>

@@ -4,7 +4,7 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
-    <f7-navbar title="Login" back-link="Blue">conacyt</f7-navbar>
+    <center><f7-navbar title="Login" back-link="Blue"></f7-navbar></center>
     <div>
       <center>
         <f7-block-title>Iniciar Sesion</f7-block-title>

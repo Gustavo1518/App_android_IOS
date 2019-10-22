@@ -6,28 +6,29 @@
       <li v-for="(item, index) in friend_requests" :key="index">
         <i>{{ item }}</i>
         <button @click="confirm(item)">Confirmar</button>
-         <button @click="eliminar(item)">eliminar</button>
+        <button @click="eliminar(item)">eliminar</button>
       </li>
     </div>
+    <pre>{{friend_requests}}</pre>
   </f7-page>
 </template>
 <script>
 export default {
   computed: {
     friend_requests() {
-      return this.$store.getters.friend_requests;
+      return this.$store.getters.friend_requests
     }
   },
   methods: {
     confirm(request) {
-      this.$store.dispatch("comfirmRequests", request);
+      this.$store.dispatch("comfirmRequests", request)
     },
     eliminar(request) {
-      this.$store.dispatch("deleteRequests", request);
+      this.$store.dispatch("deleteRequests", request)
     }
   },
   created() {
-   //this.$store.dispatch('getMyFriends')
+    //this.$store.dispatch("getRequests");
     this.$store.dispatch("requestsn");
   }
 };

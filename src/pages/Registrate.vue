@@ -110,7 +110,6 @@ export default {
         this.$store.dispatch("verifi", payload);
       }
       return (this.email = ""), (this.password = ""), (this.name = "");
-      //alert(JSON.stringify(payload));
     },
     launchFilepicker() {
       this.$refs.file.click();

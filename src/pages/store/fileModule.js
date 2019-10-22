@@ -105,7 +105,9 @@ const fileModule = {
         signOut() {
             firebase.auth().signOut().then(() => {
                 this.user = null
-            }).catch(err => console.log(err));
+            }).catch(err =>{
+                console.log(err)
+            })
         },
         uploadFile({ commit, state }) {
             return new Promise((resolve, reject) => {

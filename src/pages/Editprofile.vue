@@ -1,6 +1,6 @@
 <template>
   <f7-page name="Registrate">
-    <f7-navbar title="Registrate" back-link="Blue"></f7-navbar>
+    <f7-navbar title="Actualizar Perfil" back-link="Blue"></f7-navbar>
     <div>
       <center>
         <img class="image--cover" :src="img_url" alt="Registro" @click="launchFilepicker" />
