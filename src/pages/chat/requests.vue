@@ -5,6 +5,8 @@
     <div>
       <li v-for="(item, index) in friend_requests" :key="index">
         <i>{{ item }}</i>
+        <button @click="confirm(item)">Confirmar</button>
+         <button @click="eliminar(item)">eliminar</button>
       </li>
     </div>
   </f7-page>
@@ -25,7 +27,7 @@ export default {
     }
   },
   created() {
-    // this.$store.dispatch('requestsn')
+   //this.$store.dispatch('getMyFriends')
     this.$store.dispatch("requestsn");
   }
 };

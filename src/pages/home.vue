@@ -14,29 +14,26 @@
         </f7-link>
         <f7-link icon-f7="add" href="/Contactos/"></f7-link>
 
-        <f7-link icon-f7="chat"></f7-link>
+        <f7-link icon-f7="chat" href="/Chat/"></f7-link>
 
          <f7-link icon-f7="info" href="/Informacion/">
          </f7-link>
       </f7-nav-right>
       <f7-nav-title-large sliding>Conacyt</f7-nav-title-large>
-    </f7-navbar>
-    <!--
+    </f7-navbar> 
     <div>
       {{friends}}
-    </div>
-    
-    <div>
-      <li v-for="(item, index) in friend_requests" :key="index">
+      <li v-for="(frd, index) in friends" :key="index">
         <i>
-          {{item}}
+          {{frd.name}}
         </i>
       </li>
-    </div>-->
+    </div>
   </f7-page>
 </template>
 <script>
 import firebase from 'firebase'
+import { encode } from 'punycode'
 export default {
  computed:{
    friends(){

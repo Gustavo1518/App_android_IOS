@@ -28,22 +28,22 @@
 </template>
 <script>
 export default {
-  data() {
+  data(){
     return {
       error: '',
     };
   },
   methods: {
-    signOut() {
+    signOut(){
       const app = this.$f7;
       this.$store.dispatch("signOut");
       app.panel.close();
     }
   },
   computed: {
-    img_url() {
+    img_url(){
       return this.$store.getters.img_url;
-    }
+    },
   }
 };
 </script>
