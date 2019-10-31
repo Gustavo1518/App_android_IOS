@@ -104,7 +104,7 @@ const fileModule = {
         },
         signOut() {
             firebase.auth().signOut().then(() => {
-                this.user = null
+                this.user = !null
             }).catch(err =>{
                 console.log(err)
             })

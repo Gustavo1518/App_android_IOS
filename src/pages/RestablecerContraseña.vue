@@ -5,6 +5,9 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
     <f7-navbar title="Por Favor Ingresa Tu Correo" back-link="Blue">conacyt</f7-navbar>
+    <center>
+      <div class="alert alert-success" role="alert" v-if="error" >{{error}}</div>
+    </center>
     <f7-list no-hairlines-md>
       <f7-list-input
         :value="email"
@@ -25,8 +28,9 @@ export default {
   data() {
     return {
       email: null,
-      password: null
-    };
+      password: null,
+      error: null
+    }
   },
   computed: {},
   methods: {
@@ -42,14 +46,14 @@ export default {
               "setAlertMessage",
               "An reset email has been sent"
             );
-            alert("Verica tu correo");
+           alert("Se envio correo de restablecimiento");
           })
           .catch(function(error) {
             // An error happened.
             this.$store.commit("setAlertMessage", error);
           });
       } else if (this.email == null) {
-        alert("Ingresa Tu Correo");
+        this.error=("Por Favor Ingresa Tu correo");
       } else {
         this.$store.commit("setAlertMessage", "please enter yout email");
         console.log("Existe un error");

@@ -5,11 +5,10 @@
     <div>
       <li v-for="(item, index) in friend_requests" :key="index">
         <i>{{ item }}</i>
-        <button @click="confirm(item)">Confirmar</button>
-        <button @click="eliminar(item)">eliminar</button>
+        <button class="col button button-fill color-red" @click="confirm(item)">Confirmar</button>
+        <button class="col button button-fill color-blue" @click="eliminar(item)">eliminar</button>
       </li>
     </div>
-    <pre>{{friend_requests}}</pre>
   </f7-page>
 </template>
 <script>

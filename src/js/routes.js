@@ -73,7 +73,7 @@ var routes = [
     component: requests
   },
   {
-    path: '/Chat/:frd',
+    path: '/Chat/',
     component: Chat
   },
   {

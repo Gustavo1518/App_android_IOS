@@ -22,11 +22,10 @@
       <f7-nav-title-large sliding>Conacyt</f7-nav-title-large>
     </f7-navbar> 
     <div>
-      {{friends}}
-      <li v-for="(frd, index) in friends" :key="index">
-        <i>
-          {{frd.name}}
-        </i>
+      <li v-for="(item, index) in friend_requests" :key="index">
+       <i>
+        {{ index }} {{ item }}
+       </i>
       </li>
     </div>
   </f7-page>
@@ -44,8 +43,8 @@ export default {
    }
  },
  created(){
-//this.$store.dispatch('requestsn')
-//this.$store.dispatch('getMyFriends')
+    this.$store.dispatch('requestsn')
+    // this.$store.dispatch('getMyFriends')
  }
 }
 </script>

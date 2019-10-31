@@ -4,7 +4,12 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
-    <center><f7-navbar title="Login" back-link="Blue"></f7-navbar></center>
+    <center>
+      <f7-navbar title="Login" back-link="Blue"></f7-navbar>
+      <div class="alert alert-success" role="alert" v-if="error">
+        <h4 class="alert-heading">{{error}}</h4>
+      </div>
+    </center>
     <div>
       <center>
         <f7-block-title>Iniciar Sesion</f7-block-title>
@@ -35,10 +40,6 @@
       <f7-link @click="onSigninFacebook">Iniciar Con Facebook</f7-link>|
       <f7-link href="/Registrate/">Registrarme</f7-link>|
       <f7-link @click="forgetpassword" href="/Restablecercontraseña/">Olvide Mi Contraseña</f7-link>
-
-      <div class="alert alert-success" role="alert" v-if="error">
-        <h4 class="alert-heading">{{ error }}</h4>
-      </div>
     </center>
   </f7-page>
 </template>
@@ -48,9 +49,9 @@ import firebase from "firebase";
 export default {
   data() {
     return {
-      email: null,
+      email: null, 
       password: null,
-      error: "",
+      error: null
     };
   },
   computed: {
@@ -70,15 +71,13 @@ export default {
       payload.email = this.email;
       payload.password = this.password;
       if (this.email == null || this.password == null) {
-        this.error = "Faltan Campos Por llenar";
-      } else {
+        this.error = "Todos Los Campos Son Requeridos";
+      }else {
         this.$store.dispatch("login", payload);
-
         return (this.error = "");
       }
     },
     forgetpassword() {
-      console.log("forgetpassword");
       var auth = firebase.auth();
       if (this.email != null) {
         auth

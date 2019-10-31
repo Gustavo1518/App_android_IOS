@@ -8,6 +8,7 @@
     <f7-list no-hairlines-md>
       <div>
         <center>
+          <div class="alert alert-success" role="alert" v-if="error">{{error}}</div>
           <img class="image--cover" :src="img_url" alt="Registro" @click="launchFilepicker" />
         </center>
       </div>
@@ -49,6 +50,8 @@ export default {
       email: null,
       name: null,
       password: null,
+      error: ''
+      
     };
   },
   computed: {
@@ -83,7 +86,7 @@ export default {
         this.password == null ||
         this.password == null
       ) {
-       alert('No existe Correo')
+        this.error=("No existe Correo");
       } else {
         this.$store.dispatch("verification", payload);
       }
@@ -105,7 +108,7 @@ export default {
         this.password == null ||
         this.password == null
       ) {
-        alert("Campos Vacios")
+        this.error=("Campos Vacios");
       } else {
         this.$store.dispatch("verifi", payload);
       }

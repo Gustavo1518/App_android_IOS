@@ -24,7 +24,7 @@ const ChatModule = {
     },
     actions: {
         comfirmRequests({ dispatch }, payload) {
-            return Promise = new Promise((resolve, reject) => {
+           var promise = new Promise((resolve, reject) => {
                 db.firefriends.child(firebase.auth().currentUser.uid)
                     .push({ uid: payload.uid })
                     .then(() => {
@@ -38,8 +38,10 @@ const ChatModule = {
                     })
                     .catch(err => {
                         reject(err)
-                    })
+                    })   
+                    return promise
             })
+         
         },
         deleteRequests({dispatch},payload) {
             return Promise = new Promise((resolve, reject) => {
@@ -83,10 +85,9 @@ const ChatModule = {
                 .on('value', snapshot => {
                     var frds_id = _.map(snapshot.val(), 'sender')
                     var userdetails = []
-                    _.forEach(frds_id, uid => {
+                    _.forEach(frds_id,uid => {
                         var user = _.find(users['uid', uid])
                         userdetails.push(user)
-
                     })
                     commit('setFriends', userdetails)
                 })
